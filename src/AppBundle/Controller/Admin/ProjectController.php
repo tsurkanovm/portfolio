@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Project;
+use AppBundle\Form\ProjectFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,9 +29,16 @@ class ProjectController extends Controller
      */
     public function addAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+//        $project = new Project();
+        $form = $this->createForm(ProjectFormType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+
+        return $this->render('admin/project/new.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
