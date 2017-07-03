@@ -31,7 +31,6 @@ class ProjectFormType extends AbstractType
                     'Disabled' => false,
                 ]
             ])
-
         ;
     }
 

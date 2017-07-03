@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,20 +40,20 @@ class ProjectController extends Controller
         }
 
         return $this->render('admin/project/new.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
-     /**
-     * @Route("/edit_project", name="admin_project_edit")
+    /**
+     * @Route("/edit_project/{id}", name="admin_project_edit")
      */
-    public function editAction(Request $request)
+    public function editAction(Project $project)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
+        $form = $this->createForm(ProjectFormType::class);
+        $form->setData($project);
+        return $this->render('admin/project/edit.html.twig', [
+            'project' => $project,
+            'form' => $form->createView()
         ]);
     }
-
-
 }
