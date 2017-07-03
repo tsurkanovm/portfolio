@@ -6,47 +6,45 @@
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
             <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('bundles/app/css/styles.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {#<div class="search-bar">#}
-            {#<form method="GET" action="" class="js-sea-search sea-search">#}
-                {#<input type="search" name="q" placeholder="Search Sea Creatures" autocomplete="off" class="search-input">#}
-            {#</form>#}
-        {#</div>#}
-        {#<header class="header">#}
-            {#<img class="logo-icon" src="{{ asset('images/aquanote-logo.png') }}">#}
-            {#<h1 class="logo">AquaNote</h1>#}
-            {#<ul class="navi">#}
-                {#<li class="search"><a href="#" class="js-header-search-toggle"><i class="fa fa-search"></i></a></li>#}
-                {#{% if is_granted('ROLE_USER') %}#}
-                    {#<li><a href="{{ path('security_logout') }}">Logout</a></li>#}
-                {#{% else %}#}
-                    {#<li><a href="{{ path('security_login') }}">Login</a></li>#}
-                {#{% endif %}#}
-            {#</ul>#}
-        {#</header>#}
-
-        <div class="main-content">
-            {% for msg in app.session.flashBag.get('success') %}
-                <div class="alert alert-success">
-                    {{ msg }}
+    <div class="wrapper">
+        <div class="box">
+            <div class="row">
+                <!-- sidebar -->
+                <div class="column col-sm-2" id="sidebar">
+                    <div class="padding">
+                        {{ admin_sidebar_menu() }}
+                    </div>
                 </div>
-            {% endfor %}
+                <!-- /sidebar -->
 
-            {% block body %}{% endblock %}
+                <!-- main -->
+                <div class="column col-sm-10" id="main">
+                    <div class="padding">
+                        <div class="full col-sm-10">
+                            {% for msg in app.session.flashBag.get('success') %}
+                                <div class="alert alert-success">
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            {% block body %}{% endblock %}
+                        </div><!-- /col-10 -->
+                    </div><!-- /padding -->
+                </div>
+                <!-- /main -->
+            </div>
         </div>
-
-        {#<div class="footer">#}
-            {#<p class="footer-text">Made with <span class="heart"><3</span> Tsurkanov Mikhail </p>#}
-        {#</div>#}
+    </div>
 
         {% block javascripts %}
-            {#<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>#}
-            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+            <script src="{{ asset('vendor/jquery/jquery-3.2.1.slim.min.js') }}"></script>
+            {#<script src="{{ asset('js/main.js') }}"></script>#}
         {% endblock %}
     </body>
 </html>

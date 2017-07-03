@@ -1,0 +1,8 @@
+services:
+    admin_side_bar_menu_builder:
+        class: AppBundle\Twig\AdminSideBarMenuExtension
+        calls:
+            - { method: setItems, arguments: ['%app.menu_items%']}
+        tags:
+            - { name: twig.extension }
+            

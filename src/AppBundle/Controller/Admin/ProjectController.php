@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,12 +28,14 @@ class ProjectController extends Controller
      */
     public function addAction(Request $request)
     {
-//        $project = new Project();
         $form = $this->createForm(ProjectFormType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $project = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
         }
 
         return $this->render('admin/project/new.html.twig', [

@@ -1,0 +1,13 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+
+{% for route, name in items %}
+    <ul class="nav nav-pills nav-stacked">
+        {% if currentRoute == route %}
+            {% set className = "active" %}
+        {% else %}
+            {% set className = "" %}
+        {% endif %}
+        {#<li role="presentation" class="active"><a href="#">Home</a></li>#}
+        <li role="presentation" class="{{ className }}"><a href="{{ path(route) }}">{{ name }}</a></li>
+    </ul>
+{% endfor %}
