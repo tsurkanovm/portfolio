@@ -1,0 +1,114 @@
+/* ============== Base layout ============ */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: "Merriweather", "Georgia", "Serif";
+    background-image: url("../img/admin_bg.jpg");
+}
+
+.wrapper, .row {
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.wrapper:before, .wrapper:after,
+.column:before, .column:after {
+    content: "";
+    display: table;
+}
+
+.wrapper:after,
+.column:after {
+    clear: both;
+}
+
+.column {
+    height: 100%;
+    overflow: auto;
+    *zoom: 1;
+}
+
+.column .padding {
+    padding: 20px;
+}
+
+.box {
+    bottom: 0; /* increase for footer use */
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.col-sm-10.full {
+    width: 100%;
+}
+
+/* ============== Base layout end ============ */
+
+#sidebar-footer {
+    position: absolute;
+    bottom: 5px;
+}
+
+#footer {
+    margin-bottom: 20px;
+}
+
+.col-sm-2:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+/* separated line between sidebar menu and content */
+
+/* ============== Sidebar menu ============ */
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+    background-color: #e2e7e9;
+    color: #0f0f0f;
+}
+
+.nav-pills > li > a:hover {
+    background-color: unset;
+    border: 1px solid #5e5e5e;
+}
+
+.nav > li > a {
+    padding: 14px 15px;
+    font-size: 18px;
+}
+
+/* ============== Sidebar menu end ============ */
+
+/* ============== Override bootstrap for btn-primary ============ */
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+    font-size: 18px;
+}
+
+.btn-primary.outline {
+    border: 2px solid #8c9ca4;
+    color: #0f0f0f;
+}
+
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+    background-color: #8c9ca4;
+}
+
+.btn-primary.outline:active, .btn-primary.outline.active {
+    border-color: #007299;
+    color: #007299;
+    box-shadow: none;
+}
+
+/* ============== Override bootstrap for btn-primary end ============ */
+
+.btn.btn-xs.btn-success {
+    background-color: #5e5e5e;
+    border-color: #0f0f0f;
+}
+
+/* ============== Override bootstrap for btn-success ============ */
