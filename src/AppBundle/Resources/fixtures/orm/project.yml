@@ -1,0 +1,11 @@
+AppBundle\Entity\Project:
+    project{1..12}:
+        name: <company()>
+        fullName: <company()> <bs()>
+        weight: <current()>
+        status: <boolean(70)>
+        displayOnHome: <boolean(90)>
+        description: <sentence()>
+        workDescription: <text()>
+        myRole: <text()>
+        challenge: <text()>

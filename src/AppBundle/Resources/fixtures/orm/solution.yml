@@ -1,0 +1,3 @@
+AppBundle\Entity\Solution:
+    solution{1..30}:
+        name: <word()>
