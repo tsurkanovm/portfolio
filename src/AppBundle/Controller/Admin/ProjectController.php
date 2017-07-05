@@ -11,16 +11,19 @@ use Symfony\Component\HttpFoundation\Request;
 class ProjectController extends Controller
 {
     /**
-     * @Route("/projects", name="admin_project_list")
+     * @Route("/projects/{page}", defaults={"page" = 1}, name="admin_project_list")
      */
-    public function indexAction()
+    public function indexAction(int $page)
     {
+        $limit = $this->getParameter("paginator_limit");
         $projects = $this->getDoctrine()
             ->getRepository('AppBundle:Project')
-            ->findAll();
+            ->getAllProjects($page, $limit);
 
         return $this->render('admin/project/index.html.twig', [
-            'projects' => $projects,
+            'projects' => $projects->getIterator(),
+            'currentPage' => $page,
+            'maxPages' => ceil($projects->count() / $limit)
         ]);
     }
 

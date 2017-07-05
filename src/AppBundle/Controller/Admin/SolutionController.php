@@ -11,16 +11,21 @@ use Symfony\Component\HttpFoundation\Request;
 class SolutionController extends Controller
 {
     /**
-     * @Route("/solutions", name="admin_solution_list")
+     * @Route("/solutions/{page}", defaults={"page" = 1}, name="admin_solution_list")
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(int $page)
     {
+        $limit = $this->getParameter("paginator_limit");
         $solutions = $this->getDoctrine()
             ->getRepository('AppBundle:Solution')
-            ->findAll();
+            ->getAllSolutions($page, $limit);
 
         return $this->render('admin/solution/index.html.twig', [
-            'solutions' => $solutions,
+            'solutions' => $solutions->getIterator(),
+            'currentPage' => $page,
+            'maxPages' => ceil($solutions->count() / $limit),
         ]);
 
     }

@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ProjectRepository
@@ -11,6 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProjectRepository extends EntityRepository
 {
+    use PaginatorRepositoryTrait;
+
+    /**
+     * @return array
+     */
     public function findMain()
     {
         return $this
@@ -21,5 +27,21 @@ class ProjectRepository extends EntityRepository
             ->addOrderBy('project.weight', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param int $currentPage
+     * @param int $limit
+     * @return Paginator
+     */
+    public function getAllProjects(int $currentPage, int $limit): Paginator
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.created', 'DESC')
+            ->getQuery();
+
+        $paginator = $this->paginate($query, $currentPage, $limit);
+
+        return $paginator;
     }
 }
