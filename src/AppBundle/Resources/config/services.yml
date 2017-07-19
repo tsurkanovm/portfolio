@@ -1,8 +1,14 @@
 services:
-    admin_side_bar_menu_builder:
+    app.twig.admin_sidebar_menu_extension:
         class: AppBundle\Twig\AdminSideBarMenuExtension
         calls:
             - { method: setItems, arguments: ['%app.menu_items%']}
         tags:
             - { name: twig.extension }
-            
+    app.twig.admin_breadcrumb_menu_extension:
+            class: AppBundle\Twig\AdminBreadcrumbMenuExtension
+            arguments:
+                - '@knp_menu.helper'
+                - '@knp_menu.matcher'
+            tags:
+                - { name: twig.extension }

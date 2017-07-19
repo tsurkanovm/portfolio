@@ -1,10 +1,9 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% set routeName = 'admin_solution_list' %}
-{% block body %}
+{% block content %}
     <div class="container">
         <div class="row">
-            {#{{ dump() }}#}
             <div class="col-xs-12">
                 <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
                     <a href="{{ path('admin_solution_add') }}" class="btn btn-primary outline">Add <span

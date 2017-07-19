@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>{% block title %}My portfolio admin panel{% endblock %}</title>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}My portfolio admin panel{% endblock %}</title>
 
-        {% block stylesheets %}
-            <link href=’http://fonts.googleapis.com/css?family=Merriweather&#8217;
-                  rel=’stylesheet’ type=’text/css’>
-            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('bundles/app/css/admin_styles.css') }}">
-        {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-    <div class="wrapper">
-        <div class="box">
-            <div class="row">
-                <!-- sidebar -->
-                <div class="column col-sm-2" id="sidebar">
-                    <div class="padding">
-                        {{ admin_sidebar_menu() }}
-                    </div>
+    {% block stylesheets %}
+        <link href=’http://fonts.googleapis.com/css?family=Merriweather&#8217;
+              rel=’stylesheet’ type=’text/css’>
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bundles/app/css/admin_styles.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+<div class="wrapper">
+    <div class="box">
+        <div class="row">
+            <!-- sidebar -->
+            <div class="column col-sm-2" id="sidebar">
+                <div class="padding">
+                    {{ admin_sidebar_menu() }}
                 </div>
-                <!-- /sidebar -->
-
-                <!-- main -->
-                <div class="column col-sm-10" id="main">
-                    <div class="padding">
-                        <div class="full col-sm-10">
-                            {% for msg in app.session.flashBag.get('success') %}
-                                <div class="alert alert-success">
-                                    {{ msg }}
-                                </div>
-                            {% endfor %}
-                            {% block body %}{% endblock %}
-                        </div><!-- /col-10 -->
-                    </div><!-- /padding -->
-                </div>
-                <!-- /main -->
             </div>
+            <!-- /sidebar -->
+
+            <!-- main -->
+            <div class="column col-sm-10" id="main">
+                <div class="padding">
+                    <div class="full col-sm-10">
+                        {% for msg in app.session.flashBag.get('success') %}
+                            <div class="alert alert-success">
+                                {{ msg }}
+                            </div>
+                        {% endfor %}
+                        <div class="container">
+                            {% block breadcrumbs %}
+                                {{ knp_menu_render('AppBundle:Builder:createBreadcrumbsMenu', {'template': 'admin/menu/breadcrumb.html.twig'}) }}
+                            {% endblock %}
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div><!-- /col-10 -->
+                </div><!-- /padding -->
+            </div>
+            <!-- /main -->
         </div>
     </div>
+</div>
 
-        {% block javascripts %}
-            <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
-            <script src="{{ asset('vendor/jquery/jquery-3.2.1.slim.min.js') }}"></script>
-            {#<script src="{{ asset('js/main.js') }}"></script>#}
-        {% endblock %}
-    </body>
+{% block javascripts %}
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery-3.2.1.slim.min.js') }}"></script>
+    {#<script src="{{ asset('js/main.js') }}"></script>#}
+{% endblock %}
+</body>
 </html>
