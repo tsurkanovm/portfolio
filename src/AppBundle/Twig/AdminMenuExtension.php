@@ -6,7 +6,7 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\MatcherInterface;
 use Knp\Menu\Twig\Helper;
 
-class AdminBreadcrumbMenuExtension extends \Twig_Extension
+class AdminMenuExtension extends \Twig_Extension
 {
     /**
      * @var Helper
@@ -83,6 +83,6 @@ class AdminBreadcrumbMenuExtension extends \Twig_Extension
      */
     public function getName(): string
     {
-        return 'admin_breadcrumb_menu_extension';
+        return 'admin_menu_extension';
     }
 }
