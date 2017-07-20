@@ -1,14 +1,15 @@
 services:
-    app.twig.admin_sidebar_menu_extension:
-        class: AppBundle\Twig\AdminSideBarMenuExtension
-        calls:
-            - { method: setItems, arguments: ['%app.menu_items%']}
-        tags:
-            - { name: twig.extension }
-    app.twig.admin_breadcrumb_menu_extension:
-            class: AppBundle\Twig\AdminBreadcrumbMenuExtension
+    app.twig.admin_menu_extension:
+            class: AppBundle\Twig\AdminMenuExtension
             arguments:
                 - '@knp_menu.helper'
                 - '@knp_menu.matcher'
             tags:
                 - { name: twig.extension }
+    app.menu_builder:
+            class: AppBundle\Menu\Builder
+            arguments:
+                - '@knp_menu.factory'
+                - '@request_stack'
+            tags:
+                - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin }

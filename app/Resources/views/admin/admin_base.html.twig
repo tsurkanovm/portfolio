@@ -20,7 +20,11 @@
             <!-- sidebar -->
             <div class="column col-sm-2" id="sidebar">
                 <div class="padding">
-                    {{ admin_sidebar_menu() }}
+                    {{ knp_menu_render('admin',{
+                        'template': 'admin/menu/sidebar.html.twig',
+                        'currentClass': 'active',
+                        'ancestorClass': 'active'
+                    }) }}
                 </div>
             </div>
             <!-- /sidebar -->
@@ -36,7 +40,7 @@
                         {% endfor %}
                         <div class="container">
                             {% block breadcrumbs %}
-                                {{ knp_menu_render('AppBundle:Builder:createBreadcrumbsMenu', {'template': 'admin/menu/breadcrumb.html.twig'}) }}
+                                {{ knp_menu_render('admin', {'template': 'admin/menu/breadcrumb.html.twig'}) }}
                             {% endblock %}
                             {% block content %}{% endblock %}
                         </div>

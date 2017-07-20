@@ -4,32 +4,38 @@ namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
-class Builder implements ContainerAwareInterface
+class Builder
 {
-    use ContainerAwareTrait;
+    /**
+     * @var FactoryInterface
+     */
+    private $factory;
 
     /**
-     * @param FactoryInterface $factory
-     * @return ItemInterface
+     * @var RequestStack
      */
-    public function createBreadcrumbsMenu(FactoryInterface $factory): ItemInterface
-    {
-        $menu = $this->createMenu($factory);
+    private $request;
 
-        return $menu;
+    /**
+     * Builder constructor.
+     * @param FactoryInterface $factory
+     * @param RequestStack $request
+     */
+    public function __construct(FactoryInterface $factory, RequestStack $request)
+    {
+        $this->factory = $factory;
+        $this->request = $request;
     }
 
     /**
-     * @param FactoryInterface $factory
+     * @param array $options
      * @return ItemInterface
      */
-    protected function createMenu(FactoryInterface $factory): ItemInterface
+    public function createAdminMenu(array $options): ItemInterface
     {
-        $menu = $factory->createItem('Home', ['route' => 'dashboard']);
+        $menu = $this->factory->createItem('Dashboard', ['route' => 'dashboard']);
 
         $this->createProjectMenu($menu);
         $this->createSolutionMenu($menu);
@@ -42,23 +48,15 @@ class Builder implements ContainerAwareInterface
      */
     protected function createProjectMenu(ItemInterface $root): void
     {
-        $list = $root->addChild('Project List', ['route' => 'admin_project_list', 'display' => false]);
+        $list = $root->addChild('Project', ['route' => 'admin_project_list']);
         $list->addChild('Create', ['route' => 'admin_project_add', 'display' => false]);
-        if ($id = $this->getRequest()->get("id")) {
+        if ($id = $this->request->getCurrentRequest()->get("id")) {
             $list->addChild('Edit', [
                 'route' => 'admin_project_edit',
-                'routeParameters' => ['id' => $this->getRequest()->get("id")],
+                'routeParameters' => ['id' => $id],
                 'display' => false
             ]);
         }
-    }
-
-    /**
-     * @return Request
-     */
-    protected function getRequest(): Request
-    {
-        return $this->container->get('request_stack')->getCurrentRequest();
     }
 
     /**
@@ -66,12 +64,12 @@ class Builder implements ContainerAwareInterface
      */
     protected function createSolutionMenu(ItemInterface $root): void
     {
-        $list = $root->addChild('Solution List', ['route' => 'admin_solution_list', 'display' => false]);
+        $list = $root->addChild('Solution', ['route' => 'admin_solution_list']);
         $list->addChild('Create', ['route' => 'admin_solution_add', 'display' => false]);
-        if ($id = $this->getRequest()->get("id")) {
+        if ($id = $this->request->getCurrentRequest()->get("id")) {
             $list->addChild('Edit', [
                 'route' => 'admin_solution_edit',
-                'routeParameters' => ['id' => $this->getRequest()->get("id")],
+                'routeParameters' => ['id' => $id],
                 'display' => false
             ]);
         }
