@@ -13,3 +13,6 @@ services:
                 - '@request_stack'
             tags:
                 - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin }
+    app.service.singleton:
+            class: AppBundle\Service\Singleton
+            factory: ['AppBundle\Service\Singleton', getInstance]

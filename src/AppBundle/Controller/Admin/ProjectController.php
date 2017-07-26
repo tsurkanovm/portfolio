@@ -52,6 +52,7 @@ class ProjectController extends Controller
      */
     public function editAction(Project $project)
     {
+        $farr = $this->get('app.service.singleton')->testClosure();
         $form = $this->createForm(ProjectFormType::class);
         $form->setData($project);
         return $this->render('admin/project/edit.html.twig', [
