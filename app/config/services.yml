@@ -4,6 +4,7 @@ parameters:
     #parameter_name: value
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.dropbox_client:
+        class: Spatie\Dropbox\Client
+        arguments:
+            - "MdVJIHeo5vQAAAAAAAAHbDgnz9UKh1E6XsvNOy1_5Hzy8UbBCpMJesZY79sZ2qPI"

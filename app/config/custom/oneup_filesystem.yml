@@ -1,0 +1,10 @@
+oneup_flysystem:
+    adapters:
+        my_adapter:
+            dropbox:
+                client: app.dropbox_client
+                prefix: ''
+    filesystems:
+        my_filesystem:
+            adapter: my_adapter
+            mount:   my_filesystem
