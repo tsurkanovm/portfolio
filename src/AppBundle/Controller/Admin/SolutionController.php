@@ -53,10 +53,22 @@ class SolutionController extends Controller
     /**
      * @Route("/edit_solution/{id}", name="admin_solution_edit")
      */
-    public function editAction(Solution $solution)
+    public function editAction(Request $request, Solution $solution)
     {
-        $form = $this->createForm(SolutionFormType::class);
-        $form->setData($solution);
+        $form = $this->createForm(SolutionFormType::class, $solution);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $solution = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($solution);
+            $em->flush();
+
+            $this->addFlash('success', 'Solution updated!');
+
+            return $this->redirectToRoute('admin_solution_list');
+        }
+
         return $this->render('admin/solution/edit.html.twig', [
             'solution' => $solution,
             'form' => $form->createView()

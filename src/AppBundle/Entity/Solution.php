@@ -2,15 +2,21 @@
 
 namespace AppBundle\Entity;
 
-use Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\{
+    File, UploadedFile
+};
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Entity\File as EmbeddedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Solution
  *
  * @ORM\Table(name="solutions")
  * @ORM\Entity(repositoryClass="\AppBundle\Repository\SolutionRepository")
+ * @Vich\Uploadable
  *
  * @author Tsurkanov Mihail <tsurkanovm@gmail.com>
  */
@@ -35,12 +41,36 @@ class Solution
      */
     private $name;
 
-//    /**
-//     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
-//     *
-//     * @var Media image
-//     */
-//    private $image;
+    /**
+     * @Vich\UploadableField(mapping="solution_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
+     *
+     * @var EmbeddedFile
+     */
+    private $image;
+
+    /**
+     * @var \DateTime
+     *
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updated;
+
+
+    /**
+     * Solution constructor.
+     */
+    public function __construct()
+    {
+        $this->image = new EmbeddedFile();
+    }
 
     /**
      * Get id
@@ -50,6 +80,50 @@ class Solution
     public function getId():int
     {
         return $this->id;
+    }
+
+    /**
+     * @param File|UploadedFile $image
+     */
+    public function setImageFile(File $image = null): void
+    {
+        $this->imageFile = $image;
+
+        if ($image)
+            $this->updated = new \DateTimeImmutable();
+
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile(): ? File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param EmbeddedFile $image
+     */
+    public function setImage(EmbeddedFile $image): void
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return EmbeddedFile
+     */
+    public function getImage(): EmbeddedFile
+    {
+        return $this->image;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdated(): \DateTime
+    {
+        return $this->updated;
     }
 
     /**
@@ -75,29 +149,9 @@ class Solution
         return $this->name;
     }
 
-//    /**
-//     * Set image
-//     *
-//     * @param Media $image
-//     * @return Solution
-//     */
-//    public function setImage(Media $image = null):Solution
-//    {
-//        $this->image = $image;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get image
-//     *
-//     * @return Media
-//     */
-//    public function getImage():?Media
-//    {
-//        return $this->image;
-//    }
-
+    /**
+     * @return string
+     */
     public function __toString():string
     {
         return $this->getName() ? : "New Solution";
