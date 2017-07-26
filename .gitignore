@@ -15,5 +15,6 @@
 /vendor/
 /web/bundles/
 /web/images/
+/web/files/
 /.idea
 /web/app_dev.php
