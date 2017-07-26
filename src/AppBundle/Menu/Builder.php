@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Builder
 {
+
     /**
      * @var FactoryInterface
      */
@@ -28,6 +29,7 @@ class Builder
         $this->factory = $factory;
         $this->request = $request;
     }
+
 
     /**
      * @param array $options

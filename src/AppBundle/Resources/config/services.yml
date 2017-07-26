@@ -1,11 +1,4 @@
 services:
-    app.twig.admin_menu_extension:
-            class: AppBundle\Twig\AdminMenuExtension
-            arguments:
-                - '@knp_menu.helper'
-                - '@knp_menu.matcher'
-            tags:
-                - { name: twig.extension }
     app.menu_builder:
             class: AppBundle\Menu\Builder
             arguments:
