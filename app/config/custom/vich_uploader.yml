@@ -1,8 +1,8 @@
 vich_uploader:
     db_driver: orm
     mappings:
-        solution_image:
-            uri_prefix:         /images/solutions
-            upload_destination: '%kernel.root_dir%/../web/images/solutions'
+        files:
+            uri_prefix:         /files
+            upload_destination: '%kernel.root_dir%/../web/files'
             delete_on_update:   true
             delete_on_remove:   true

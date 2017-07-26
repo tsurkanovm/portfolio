@@ -3,20 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\HttpFoundation\File\{
-    File, UploadedFile
-};
 use Symfony\Component\Validator\Constraints as Assert;
-use Vich\UploaderBundle\Entity\File as EmbeddedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Solution
  *
  * @ORM\Table(name="solutions")
  * @ORM\Entity(repositoryClass="\AppBundle\Repository\SolutionRepository")
- * @Vich\Uploadable
  *
  * @author Tsurkanov Mihail <tsurkanovm@gmail.com>
  */
@@ -42,35 +35,20 @@ class Solution
     private $name;
 
     /**
-     * @Vich\UploadableField(mapping="solution_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\FileStorage")
      *
-     * @var File
+     * @var FileStorage
      */
-    private $imageFile;
+    private $logo;
 
-    /**
-     * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
-     *
-     * @var EmbeddedFile
-     */
-    private $image;
+//    /**
+//     * Solution constructor.
+//     */
+//    public function __construct()
+//    {
+//        $this->logo = new FileStorage();
+//    }
 
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
-
-
-    /**
-     * Solution constructor.
-     */
-    public function __construct()
-    {
-        $this->image = new EmbeddedFile();
-    }
 
     /**
      * Get id
@@ -80,50 +58,6 @@ class Solution
     public function getId():int
     {
         return $this->id;
-    }
-
-    /**
-     * @param File|UploadedFile $image
-     */
-    public function setImageFile(File $image = null): void
-    {
-        $this->imageFile = $image;
-
-        if ($image)
-            $this->updated = new \DateTimeImmutable();
-
-    }
-
-    /**
-     * @return File|null
-     */
-    public function getImageFile(): ? File
-    {
-        return $this->imageFile;
-    }
-
-    /**
-     * @param EmbeddedFile $image
-     */
-    public function setImage(EmbeddedFile $image): void
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @return EmbeddedFile
-     */
-    public function getImage(): EmbeddedFile
-    {
-        return $this->image;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated(): \DateTime
-    {
-        return $this->updated;
     }
 
     /**
@@ -156,4 +90,22 @@ class Solution
     {
         return $this->getName() ? : "New Solution";
     }
+
+    /**
+     * @return FileStorage
+     */
+    public function getLogo(): FileStorage
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param FileStorage $logo
+     */
+    public function setLogo(FileStorage $logo)
+    {
+        $this->logo = $logo;
+    }
+
+
 }
