@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\File\{
     File, UploadedFile
 };
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -34,6 +35,14 @@ class FileStorage
     private $id;
 
     /**
+     * @ORM\Column(length=20)
+     * @Assert\NotBlank
+     *
+     * @var string name
+     */
+    private $name;
+
+    /**
      * @Vich\UploadableField(mapping="files", fileNameProperty="file.name", size="file.size", mimeType="file.mimeType", originalName="file.originalName")
      *
      * @var File
@@ -46,6 +55,13 @@ class FileStorage
      * @var EmbeddedFile
      */
     private $file;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length = 20, nullable=true)
+     */
+    private $context;
 
     /**
      * @var \DateTime
@@ -64,6 +80,19 @@ class FileStorage
     }
 
     /**
+     * @return array
+     * @todo find another place for this func
+     */
+    public static function getAllowedContext(): array
+    {
+        return [
+            '' => '',
+            'Project' => 'project',
+            'Solution' => 'solution'
+        ];
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -72,6 +101,23 @@ class FileStorage
     {
         return $this->id;
     }
+
+    /**
+     * @return string
+     */
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
 
     /**
      * @return File|null
@@ -110,10 +156,31 @@ class FileStorage
     }
 
     /**
+     * @return string
+     */
+    public function getContext(): ?string
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param string $context
+     */
+    public function setContext(string $context)
+    {
+        $this->context = $context;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getUpdated(): \DateTime
     {
         return $this->updated;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() ?: 'New file';
     }
 }

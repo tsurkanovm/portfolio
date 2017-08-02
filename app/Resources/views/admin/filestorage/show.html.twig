@@ -1,0 +1,42 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>File</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            Name - {{ fileStorage.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            File name - {{ fileStorage.file.name }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            Size - {{ fileStorage.file.size }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            Type - {{ fileStorage.file.mimeType }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <img src="{{ vich_uploader_asset(fileStorage, 'uploadedFile') }}" alt="{{ fileStorage.file.name }}"/>
+        </div>
+    </div>
+
+    <a href="{{ path('admin_files_edit', { 'id': fileStorage.id }) }}" class="btn btn-primary outline">Edit</a>
+
+    {{ form_start(delete_form) }}
+    <button class="btn btn-primary outline" formnovalidate>Delete</button>
+    {{ form_end(delete_form) }}
+
+{% endblock %}
