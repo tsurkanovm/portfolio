@@ -94,7 +94,7 @@ class Solution
     /**
      * @return FileStorage
      */
-    public function getLogo(): FileStorage
+    public function getLogo(): ?FileStorage
     {
         return $this->logo;
     }
@@ -106,6 +106,4 @@ class Solution
     {
         $this->logo = $logo;
     }
-
-
 }

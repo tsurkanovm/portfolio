@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Solution;
-use AppBundle\Form\SolutionFormType;
+use AppBundle\Form\SolutionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class SolutionController extends Controller
      */
     public function addAction(Request $request)
     {
-        $form = $this->createForm(SolutionFormType::class);
+        $form = $this->createForm(SolutionType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,7 +55,7 @@ class SolutionController extends Controller
      */
     public function editAction(Request $request, Solution $solution)
     {
-        $form = $this->createForm(SolutionFormType::class, $solution);
+        $form = $this->createForm(SolutionType::class, $solution);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

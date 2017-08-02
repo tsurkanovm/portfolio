@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Builder
 {
-
     /**
      * @var FactoryInterface
      */
@@ -30,17 +29,16 @@ class Builder
         $this->request = $request;
     }
 
-
     /**
-     * @param array $options
      * @return ItemInterface
      */
-    public function createAdminMenu(array $options): ItemInterface
+    public function createAdminMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('Dashboard', ['route' => 'dashboard']);
 
         $this->createProjectMenu($menu);
         $this->createSolutionMenu($menu);
+        $this->createFilesMenu($menu);
 
         return $menu;
     }
@@ -71,6 +69,27 @@ class Builder
         if ($id = $this->request->getCurrentRequest()->get("id")) {
             $list->addChild('Edit', [
                 'route' => 'admin_solution_edit',
+                'routeParameters' => ['id' => $id],
+                'display' => false
+            ]);
+        }
+    }
+
+    /**
+     * @param ItemInterface $root
+     */
+    protected function createFilesMenu(ItemInterface $root): void
+    {
+        $list = $root->addChild('Files', ['route' => 'admin_files_list']);
+        $list->addChild('Create', ['route' => 'admin_files_add', 'display' => false]);
+        if ($id = $this->request->getCurrentRequest()->get("id")) {
+            $list->addChild('Edit', [
+                'route' => 'admin_files_edit',
+                'routeParameters' => ['id' => $id],
+                'display' => false
+            ]);
+            $list->addChild('Show', [
+                'route' => 'admin_files_show',
                 'routeParameters' => ['id' => $id],
                 'display' => false
             ]);

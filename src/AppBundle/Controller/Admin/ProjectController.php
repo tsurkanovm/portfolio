@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Project;
-use AppBundle\Form\ProjectFormType;
+use AppBundle\Form\ProjectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +32,7 @@ class ProjectController extends Controller
      */
     public function addAction(Request $request)
     {
-        $form = $this->createForm(ProjectFormType::class);
+        $form = $this->createForm(ProjectType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,7 +52,7 @@ class ProjectController extends Controller
      */
     public function editAction(Project $project)
     {
-        $form = $this->createForm(ProjectFormType::class);
+        $form = $this->createForm(ProjectType::class);
         $form->setData($project);
         return $this->render('admin/project/edit.html.twig', [
             'project' => $project,
