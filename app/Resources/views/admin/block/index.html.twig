@@ -5,35 +5,31 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
-                    <a href="{{ path('admin_files_add') }}" class="btn btn-primary outline">Add <span
+                    <a href="{{ path('admin_block_add') }}" class="btn btn-primary outline">Add <span
                                 class="fa fa-plus-circle"></span></a>
                 </div>
-                <h1>File list</h1>
+                <h1>Block list</h1>
 
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>NAME</th>
-                        <th>FILE NAME</th>
-                        <th>CONTEXT</th>
+                        <th>CREATED</th>
+                        <th>UPDATED</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for fileStorage in fileStorages %}
+                    {% for frontendBlock in frontendBlocks %}
                         <tr>
                             <td>
-                                <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}">{{ fileStorage.name }}</a>
+                                <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}">{{ frontendBlock.name }}</a>
                             </td>
-                            <td>{{ fileStorage.file.name }}</td>
-                            <td>{{ fileStorage.context }}</td>
+                            <td>{% if frontendBlock.created %}{{ frontendBlock.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if frontendBlock.updated %}{{ frontendBlock.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>
-                                <a href="{{ path('admin_files_edit', { 'id': fileStorage.id }) }}"
+                                <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}"
                                    class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-
-                                <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}"
-                                   class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-
                             </td>
                         </tr>
                     {% endfor %}

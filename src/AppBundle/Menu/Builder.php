@@ -39,6 +39,7 @@ class Builder
         $this->createProjectMenu($menu);
         $this->createSolutionMenu($menu);
         $this->createFilesMenu($menu);
+        $this->createBlocksMenu($menu);
 
         return $menu;
     }
@@ -90,6 +91,22 @@ class Builder
             ]);
             $list->addChild('Show', [
                 'route' => 'admin_files_show',
+                'routeParameters' => ['id' => $id],
+                'display' => false
+            ]);
+        }
+    }
+
+    /**
+     * @param ItemInterface $root
+     */
+    protected function createBlocksMenu(ItemInterface $root): void
+    {
+        $list = $root->addChild('Blocks', ['route' => 'admin_block_list']);
+        $list->addChild('Create', ['route' => 'admin_block_add', 'display' => false]);
+        if ($id = $this->request->getCurrentRequest()->get("id")) {
+            $list->addChild('Edit', [
+                'route' => 'admin_block_edit',
                 'routeParameters' => ['id' => $id],
                 'display' => false
             ]);

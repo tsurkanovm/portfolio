@@ -1,0 +1,12 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit block - {{ frontendBlocks.name }}</h1>
+
+            {{ include('admin/_form.html.twig') }}
+            {{ include('admin/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

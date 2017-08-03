@@ -81,10 +81,7 @@ class SolutionController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $solution = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($solution);
-            $em->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', "Solution {$solution->getName()} updated!");
 

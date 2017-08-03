@@ -16,6 +16,7 @@ class FileStorageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //@todo - add needed fields and remove comments
         $builder
             ->add('name')
             ->add('uploadedFile', VichImageType::class, [
