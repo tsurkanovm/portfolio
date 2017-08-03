@@ -8,7 +8,7 @@
                     <a href="{{ path('admin_files_add') }}" class="btn btn-primary outline">Add <span
                                 class="fa fa-plus-circle"></span></a>
                 </div>
-                <h1>Filestorages list</h1>
+                <h1>Files list</h1>
 
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -28,7 +28,6 @@
                             <td>{{ fileStorage.file.name }}</td>
                             <td>{{ fileStorage.context }}</td>
                             <td>
-
                                 <a href="{{ path('admin_files_edit', { 'id': fileStorage.id }) }}"
                                    class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
 

@@ -1,16 +1,13 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block content %}
-    <h1>Edit file</h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit file - {{ fileStorage.name }}</h1>
 
-    {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <input type="submit" value="Edit"/>
-    {{ form_end(edit_form) }}
-
-
-    {{ form_start(delete_form) }}
-    <input type="submit" value="Delete">
-    {{ form_end(delete_form) }}
+            {{ include('admin/_form.html.twig') }}
+            {{ include('admin/_delete_form.html.twig') }}
+        </div>
+    </div>
 
 {% endblock %}

@@ -4,18 +4,28 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Solution;
 use AppBundle\Form\SolutionType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Solution controller.
+ *
+ * @Route("solutions")
+ */
 class SolutionController extends Controller
 {
     /**
-     * @Route("/solutions/{page}", defaults={"page" = 1}, name="admin_solution_list")
+     * @Route("/{page}", defaults={"page" = 1}, requirements={"page" = "\d+"}, name="admin_solution_list")
+     * @Method("GET")
+     *
      * @param int $page
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction(int $page)
+    public function indexAction(int $page): Response
     {
         $limit = $this->getParameter("paginator_limit");
         $solutions = $this->getDoctrine()
@@ -31,7 +41,11 @@ class SolutionController extends Controller
     }
 
     /**
-     * @Route("/new_solution", name="admin_solution_add")
+     * @Route("/add", name="admin_solution_add")
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @return Response
      */
     public function addAction(Request $request)
     {
@@ -43,6 +57,8 @@ class SolutionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($solution);
             $em->flush();
+
+            $this->addFlash('success', "Solution {$solution->getName()} created!");
         }
 
         return $this->render('admin/solution/new.html.twig', [
@@ -51,10 +67,16 @@ class SolutionController extends Controller
     }
 
     /**
-     * @Route("/edit_solution/{id}", name="admin_solution_edit")
+     * @Route("/edit/{id}", requirements={"page" = "\d+"}, name="admin_solution_edit")
+     * @Method({"GET", "POST"})
+     *
+     * @param Request $request
+     * @param Solution $solution
+     * @return Response
      */
     public function editAction(Request $request, Solution $solution)
     {
+        $deleteForm = $this->createDeleteForm($solution);
         $form = $this->createForm(SolutionType::class, $solution);
 
         $form->handleRequest($request);
@@ -64,14 +86,55 @@ class SolutionController extends Controller
             $em->persist($solution);
             $em->flush();
 
-            $this->addFlash('success', 'Solution updated!');
+            $this->addFlash('success', "Solution {$solution->getName()} updated!");
 
             return $this->redirectToRoute('admin_solution_list');
         }
 
         return $this->render('admin/solution/edit.html.twig', [
             'solution' => $solution,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'delete_form' => $deleteForm->createView()
         ]);
+    }
+
+    /**
+     * Creates a form to delete a Solution entity.
+     *
+     * @param Solution $solution
+     * @return Form
+     */
+    private function createDeleteForm(Solution $solution): Form
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_solution_delete', array('id' => $solution->getId())))
+            ->setMethod('DELETE')
+            ->getForm();
+    }
+
+    /**
+     * Deletes a Solution entity.
+     *
+     * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="admin_solution_delete")
+     * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Solution $solution
+     * @return Response
+     */
+    public function deleteAction(Request $request, Solution $solution): Response
+    {
+        $form = $this->createDeleteForm($solution);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($solution);
+            $em->flush();
+
+            $this->addFlash('success', "Solution {$solution->getName()} deleted!");
+        }
+
+        return $this->redirectToRoute('admin_solution_list');
     }
 }
