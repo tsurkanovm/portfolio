@@ -8,10 +8,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Filestorage controller.
+ *
+ * @Route("projects")
+ */
 class ProjectController extends Controller
 {
     /**
-     * @Route("/projects/{page}", defaults={"page" = 1}, name="admin_project_list")
+     * @Route("/{page}", defaults={"page" = 1}, requirements={"page" = "\d+"}, name="admin_project_list")
      */
     public function indexAction(int $page)
     {
@@ -50,10 +55,22 @@ class ProjectController extends Controller
     /**
      * @Route("/edit_project/{id}", name="admin_project_edit")
      */
-    public function editAction(Project $project)
+    public function editAction(Request $request, Project $project)
     {
-        $form = $this->createForm(ProjectType::class);
-        $form->setData($project);
+        $form = $this->createForm(ProjectType::class, $project);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $project = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
+
+            $this->addFlash('success', "Project {$project->getName()} updated!");
+
+            return $this->redirectToRoute('admin_project_list');
+        }
+
         return $this->render('admin/project/edit.html.twig', [
             'project' => $project,
             'form' => $form->createView()

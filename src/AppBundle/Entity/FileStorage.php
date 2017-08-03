@@ -80,19 +80,6 @@ class FileStorage
     }
 
     /**
-     * @return array
-     * @todo find another place for this func
-     */
-    public static function getAllowedContext(): array
-    {
-        return [
-            '' => '',
-            'Project' => 'project',
-            'Solution' => 'solution'
-        ];
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -130,7 +117,7 @@ class FileStorage
     /**
      * @param File|UploadedFile $image
      */
-    public function setUploadedFile(File $image = null): void
+    public function setUploadedFile(File $image = null)
     {
         $this->uploadedFile = $image;
 
@@ -150,7 +137,7 @@ class FileStorage
     /**
      * @param EmbeddedFile $file
      */
-    public function setFile(EmbeddedFile $file): void
+    public function setFile(EmbeddedFile $file)
     {
         $this->file = $file;
     }

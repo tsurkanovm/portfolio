@@ -6,3 +6,20 @@ services:
                 - '@request_stack'
             tags:
                 - { name: knp_menu.menu_builder, method: createAdminMenu, alias: admin }
+
+    app.manager.file_storage_manager:
+        class: AppBundle\Manager\FileStorageManager
+        calls:
+            - [setEntityManager, ['@doctrine.orm.entity_manager']]
+
+    app.form.solution_type:
+        class: AppBundle\Form\SolutionType
+        arguments: ['@app.manager.file_storage_manager']
+        tags:
+            - { name: form.type, alias: solutionForm }
+
+    app.form.project_type:
+        class: AppBundle\Form\ProjectType
+        arguments: ['@app.manager.file_storage_manager']
+        tags:
+            - { name: form.type, alias: AppBundle\Form\ProjectType }

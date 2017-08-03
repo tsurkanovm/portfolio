@@ -2,27 +2,44 @@
 
 namespace AppBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
+use AppBundle\Manager\FileStorageManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SolutionType extends AbstractType
 {
+    /**
+     * @var FileStorageManager
+     */
+    protected $fileStorageManager;
+
+    const CURRENT_CONTEXT = 'solution';
+
+    /**
+     * SolutionType constructor.
+     * @param FileStorageManager $fileStorageManager
+     */
+    public function __construct(FileStorageManager $fileStorageManager)
+    {
+        $this->fileStorageManager = $fileStorageManager;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
             ->add('logo', null, [
-//                @todo create manager and place there this functionality
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('fl')
-                        ->where('fl.context = :context')
-                        ->setParameter('context', 'solution');
-                },
+                'choices' => $this->fileStorageManager->getRepository()->findByContext(self::CURRENT_CONTEXT),
             ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -30,6 +47,9 @@ class SolutionType extends AbstractType
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'solutionForm';

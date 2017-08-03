@@ -116,19 +116,19 @@ class Project
      */
     private $displayOnHome;
 
-//    /**
-//     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
-//     *
-//     * @var Media imageTemplate
-//     */
-//    private $imageTemplate;
-//
-//    /**
-//     * @ORM\OneToOne(targetEntity="Application\Sonata\MediaBundle\Entity\Media")
-//     *
-//     * @var Media imageLogo
-//     */
-//    private $imageLogo;
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\FileStorage")
+     *
+     * @var FileStorage
+     */
+    private $imageTemplate;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\FileStorage")
+     *
+     * @var FileStorage
+     */
+    private $imageLogo;
 
     public function __construct()
     {
@@ -157,7 +157,7 @@ class Project
 
     /**
      * @param string $fullName
-     * @return Project
+     * @return $this
      */
     public function setFullName(string $fullName):Project
     {
@@ -177,7 +177,7 @@ class Project
 
     /**
      * @param string $workDescription
-     * @return Project
+     * @return $this
      */
     public function setWorkDescription(string $workDescription):Project
     {
@@ -197,7 +197,7 @@ class Project
 
     /**
      * @param string $myRole
-     * @return Project
+     * @return $this
      */
     public function setMyRole(string $myRole):Project
     {
@@ -225,7 +225,7 @@ class Project
     /**
      * @param string $name
      *
-     * @return Project
+     * @return $this
      */
     public function setName(string $name):Project
     {
@@ -245,7 +245,7 @@ class Project
     /**
      * @param string $description
      *
-     * @return Project
+     * @return $this
      */
     public function setDescription(string $description):Project
     {
@@ -265,7 +265,7 @@ class Project
     /**
      * @param string $challenge
      *
-     * @return Project
+     * @return $this
      */
     public function setChallenge(string $challenge):Project
     {
@@ -285,7 +285,7 @@ class Project
     /**
      * @param integer $weight
      *
-     * @return Project
+     * @return $this
      */
     public function setWeight(int $weight):Project
     {
@@ -304,7 +304,7 @@ class Project
 
     /**
      * @param boolean $status
-     * @return Project
+     * @return $this
      */
     public function setStatus(bool $status):Project
     {
@@ -324,7 +324,7 @@ class Project
     /**
      * @param Solution $solutions
      *
-     * @return Project
+     * @return $this
      */
     public function addSolution(Solution $solutions):Project
     {
@@ -338,7 +338,7 @@ class Project
     /**
      * @param Solution $solutions
      *
-     * @return Project
+     * @return $this
      */
     public function removeSolution(Solution $solutions):Project
     {
@@ -358,7 +358,7 @@ class Project
     /**
      * @param boolean $displayOnHome
      *
-     * @return Project
+     * @return $this
      */
     public function setDisplayOnHome(bool $displayOnHome):Project
     {
@@ -375,45 +375,45 @@ class Project
         return $this->displayOnHome;
     }
 
-//    /**
-//     * @param Media $imageTemplate
-//     *
-//     * @return Project
-//     */
-//    public function setImageTemplate(Media $imageTemplate = null):Project
-//    {
-//        $this->imageTemplate = $imageTemplate;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Media|null
-//     */
-//    public function getImageTemplate():?Media
-//    {
-//        return $this->imageTemplate;
-//    }
-//
-//    /**
-//     * @param Media $imageLogo
-//     *
-//     * @return Project
-//     */
-//    public function setImageLogo(Media $imageLogo = null):Project
-//    {
-//        $this->imageLogo = $imageLogo;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Media|null
-//     */
-//    public function getImageLogo():?Media
-//    {
-//        return $this->imageLogo;
-//    }
+    /**
+     * @return FileStorage
+     */
+    public function getImageTemplate(): ?FileStorage
+    {
+        return $this->imageTemplate;
+    }
+
+    /**
+     * @param FileStorage $imageTemplate
+     *
+     * @return $this
+     */
+    public function setImageTemplate(FileStorage $imageTemplate)
+    {
+        $this->imageTemplate = $imageTemplate;
+
+        return $this;
+    }
+
+    /**
+     * @return FileStorage
+     */
+    public function getImageLogo(): ?FileStorage
+    {
+        return $this->imageLogo;
+    }
+
+    /**
+     * @param FileStorage $imageLogo
+     *
+     * @return $this
+     */
+    public function setImageLogo(FileStorage $imageLogo)
+    {
+        $this->imageLogo = $imageLogo;
+
+        return $this;
+    }
 
     /**
      * @return string

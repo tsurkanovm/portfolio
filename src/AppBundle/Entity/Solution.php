@@ -41,15 +41,6 @@ class Solution
      */
     private $logo;
 
-//    /**
-//     * Solution constructor.
-//     */
-//    public function __construct()
-//    {
-//        $this->logo = new FileStorage();
-//    }
-
-
     /**
      * Get id
      *

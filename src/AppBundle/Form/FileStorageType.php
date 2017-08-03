@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\FileStorage;
+use AppBundle\Manager\FileStorageManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,14 +21,14 @@ class FileStorageType extends AbstractType
             ->add('uploadedFile', VichImageType::class, [
                 'required' => true,
                 'allow_delete' => false,
-//                'label' => 'Solution image',
+                'label' => 'Solution image',
                 'download_uri' => false,
 //                'download_label' => 'Down',
                 'image_uri' => true,
 //                'imagine_pattern' => '...',
             ])
             ->add('context', ChoiceType::class, [
-                'choices' => FileStorage::getAllowedContext()
+                'choices' => FileStorageManager::getAllowedContext()
             ]);
     }
 
