@@ -17,7 +17,7 @@ class ProjectRepository extends EntityRepository
     /**
      * @return array
      */
-    public function findMain()
+    public function getHomePageProjects(): array
     {
         return $this
             ->createQueryBuilder('project')

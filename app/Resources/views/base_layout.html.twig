@@ -1,0 +1,79 @@
+{% set _content      = block('content') %}
+{% set _title        = block('title') %}
+
+<!DOCTYPE html>
+<html
+        {% block html_attributes %}
+    class="no-js"
+    lang="en" class="ie8"
+    lang="en" class="ie9"
+    lang="en"
+        {% endblock %}>
+<head>
+    {% block meta_tags %}
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Symfony web developer site (portfolio and blog)">
+        <meta name="author" content="Tsurkanov Mikhail">
+    {% endblock %}
+
+    {% block favicon %}
+        {#<link rel="shortcut icon" href="favicon.ico">  #}
+    {% endblock %}
+
+    {% block fonts %}
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet'
+              type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    {% endblock %}
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
+        <link rel="stylesheet" href="http://caseyscarborough.github.io/github-activity/github-activity-0.1.0.min.css">
+        <link id="theme-style" rel="stylesheet" href="{{ asset('bundles/app/css/front_styles.css') }}">
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    {% endblock %}
+
+    <title>
+        {% block front_head_title %}
+            {% if _title is not empty %}
+                {{ _title|raw }}
+            {% else %}
+                {{ 'Blog' }}
+            {% endif %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+{% block front_header %}
+
+{% endblock front_header %}
+
+{% block front_content %}
+
+    {% if _content is not empty %}
+        {{ _content|raw }}
+    {% endif %}
+
+{% endblock front_content %}
+
+{% block post_scripts %}
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery-3.2.1.slim.min.js') }}"></script>
+    <script type="text/javascript"
+            src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script type="text/javascript"
+            src="http://caseyscarborough.github.io/github-activity/github-activity-0.1.0.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bundles/app/js/main.js') }}"></script>
+{% endblock post_scripts %}
+</body>
+</html>

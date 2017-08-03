@@ -1,0 +1,48 @@
+{% extends 'base_layout.html.twig' %}
+
+{% block title %}
+    {{ project.name }}
+{% endblock %}
+
+{% block front_content %}
+    <div class="container sections-wrapper">
+        <div class="row">
+            <section class="latest section">
+                <div class="section-inner">
+                    <div class="content projectItem">
+                        <div class="item row">
+                            <div class="proPic"
+                                 style="background:url({{ vich_uploader_asset(project.imageTemplate, 'uploadedFile') }}) 50% 0 no-repeat;background-size:cover">
+                                <div class="over">
+                                    <h1 class="text-center">{{ project.fullName }}</h1>
+                                    <p>{{ project.description | raw }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item row">
+                            <h3 class="title text-center">{{ 'What was done:' }}</h3>
+                            <p>{{ project.workDescription | raw }}</p>
+                        </div>
+                        <div class="item row">
+                            <h3 class="title text-center">{{ 'My Role' }}</h3>
+                            <p>{{ project.myRole | raw }}</p>
+                        </div>
+                        <div class="item row text-center">
+                            <h3 class="title">{{ 'Sollutions' }}</h3>
+                            <ul class="list-inline">
+                                {% for solution in project.getSolutions %}
+                                    <li><img src="{{ vich_uploader_asset(solution.logo, 'uploadedFile') }}"
+                                             alt="{{ solution.logo.name }}"/></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="item row">
+                            <h3 class="title text-center">{{ 'Challenge' }}</h3>
+                            <p>{{ project.challenge | raw }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock front_content %}
