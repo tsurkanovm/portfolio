@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +16,7 @@ class FrontendBlockType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('content');
+            ->add('content', CKEditorType::class);
     }
 
     /**
