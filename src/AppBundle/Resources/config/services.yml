@@ -23,3 +23,9 @@ services:
         arguments: ['@app.manager.file_storage_manager']
         tags:
             - { name: form.type, alias: AppBundle\Form\ProjectType }
+
+    app.twig.block_extension:
+        class: AppBundle\Twig\BlockExtension
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: twig.extension }
