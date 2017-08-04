@@ -9,3 +9,5 @@ AppBundle\Entity\Project:
         workDescription: <text()>
         myRole: <text()>
         challenge: <text()>
+        solutions: '5x @solution_*'
+#@todo somehow fixtures stoped to load - fixed
