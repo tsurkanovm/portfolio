@@ -1,47 +1,45 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
-                    <a href="{{ path('admin_block_add') }}" class="btn btn-primary outline">Add <span
-                                class="fa fa-plus-circle"></span></a>
-                </div>
-                <h1>Block list</h1>
-
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>CREATED</th>
-                        <th>UPDATED</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for frontendBlock in frontendBlocks %}
-                        <tr class="js-table-row">
-                            <td>
-                                <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}">{{ frontendBlock.name }}</a>
-                            </td>
-                            <td>{% if frontendBlock.created %}{{ frontendBlock.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{% if frontendBlock.updated %}{{ frontendBlock.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>
-                                <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}"
-                                   class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#"
-                                   class="btn btn-xs btn-success js-remove-table-row"
-                                   data-url= {{ path('admin_block_delete', {'id': frontendBlock.id}) }}>
-                                    <span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {% include "admin/admin_paginator.html.twig" %}
-
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
+                <a href="{{ path('admin_block_add') }}" class="btn btn-primary outline">Add <span
+                            class="fa fa-plus-circle"></span></a>
             </div>
+            <h1>Block list</h1>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>CREATED</th>
+                    <th>UPDATED</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for frontendBlock in frontendBlocks %}
+                    <tr class="js-table-row">
+                        <td>
+                            <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}">{{ frontendBlock.name }}</a>
+                        </td>
+                        <td>{% if frontendBlock.created %}{{ frontendBlock.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if frontendBlock.updated %}{{ frontendBlock.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>
+                            <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}"
+                               class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="#"
+                               class="btn btn-xs btn-success js-remove-table-row"
+                               data-url= {{ path('admin_block_delete', {'id': frontendBlock.id}) }}>
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% include "admin/admin_paginator.html.twig" %}
+
         </div>
     </div>
 {% endblock %}

@@ -1,51 +1,49 @@
 {% extends 'admin/admin_base.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
-                    <a href="{{ path('admin_files_add') }}" class="btn btn-primary outline">Add <span
-                                class="fa fa-plus-circle"></span></a>
-                </div>
-                <h1>File list</h1>
-
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>NAME</th>
-                        <th>FILE NAME</th>
-                        <th>CONTEXT</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for fileStorage in fileStorages %}
-                        <tr class="js-table-row">
-                            <td>
-                                <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}">{{ fileStorage.name }}</a>
-                            </td>
-                            <td>{{ fileStorage.file.name }}</td>
-                            <td>{{ fileStorage.context }}</td>
-                            <td>
-                                <a href="{{ path('admin_files_edit', { 'id': fileStorage.id }) }}"
-                                   class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-
-                                <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}"
-                                   class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
-
-                                <a href="#"
-                                   class="btn btn-xs btn-success js-remove-table-row"
-                                   data-url= {{ path('admin_files_delete', {'id': fileStorage.id}) }}>
-                                    <span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {% include "admin/admin_paginator.html.twig" %}
-
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
+                <a href="{{ path('admin_files_add') }}" class="btn btn-primary outline">Add <span
+                            class="fa fa-plus-circle"></span></a>
             </div>
+            <h1>File list</h1>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>NAME</th>
+                    <th>FILE NAME</th>
+                    <th>CONTEXT</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for fileStorage in fileStorages %}
+                    <tr class="js-table-row">
+                        <td>
+                            <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}">{{ fileStorage.name }}</a>
+                        </td>
+                        <td>{{ fileStorage.file.name }}</td>
+                        <td>{{ fileStorage.context }}</td>
+                        <td>
+                            <a href="{{ path('admin_files_edit', { 'id': fileStorage.id }) }}"
+                               class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                            <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}"
+                               class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
+
+                            <a href="#"
+                               class="btn btn-xs btn-success js-remove-table-row"
+                               data-url= {{ path('admin_files_delete', {'id': fileStorage.id}) }}>
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% include "admin/admin_paginator.html.twig" %}
+
         </div>
     </div>
 {% endblock %}

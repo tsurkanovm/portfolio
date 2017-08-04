@@ -2,38 +2,36 @@
 
 {% set routeName = 'admin_solution_list' %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
-                    <a href="{{ path('admin_solution_add') }}" class="btn btn-primary outline">Add <span
-                                class="fa fa-plus-circle"></span></a>
-                </div>
-
-                <h1>Solutions</h1>
-
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>NAME</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                    {% for solution in solutions %}
-                        <tr class="js-table-row">
-                            <td>{{ solution.name }}</td>
-                            <td>
-                                <a href="{{ path('admin_solution_edit', {'id': solution.id}) }}"
-                                   class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
-                                <a href="#"
-                                   class="btn btn-xs btn-success js-remove-table-row"
-                                   data-url= {{ path('admin_solution_delete', {'id': solution.id}) }}>
-                                    <span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-
-                {% include "admin/admin_paginator.html.twig" %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="pull-right" style="margin-bottom: 10px; margin-top: 20px;">
+                <a href="{{ path('admin_solution_add') }}" class="btn btn-primary outline">Add <span
+                            class="fa fa-plus-circle"></span></a>
             </div>
+
+            <h1>Solutions</h1>
+
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>NAME</th>
+                    <th>&nbsp;</th>
+                </tr>
+                {% for solution in solutions %}
+                    <tr class="js-table-row">
+                        <td>{{ solution.name }}</td>
+                        <td>
+                            <a href="{{ path('admin_solution_edit', {'id': solution.id}) }}"
+                               class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="#"
+                               class="btn btn-xs btn-success js-remove-table-row"
+                               data-url= {{ path('admin_solution_delete', {'id': solution.id}) }}>
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            {% include "admin/admin_paginator.html.twig" %}
         </div>
     </div>
 {% endblock %}
