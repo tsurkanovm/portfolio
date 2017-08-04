@@ -8,7 +8,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\{
     File, UploadedFile
 };
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -21,19 +20,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Tsurkanov Mihail <tsurkanovm@gmail.com>
  */
-class FileStorage
+class FileStorage extends AdminEntity
 {
-    /**
-     * Primary key
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @var integer $id
-     */
-    private $id;
-
     /**
      * @ORM\Column(length=20)
      * @Assert\NotBlank
@@ -64,29 +52,11 @@ class FileStorage
     private $context;
 
     /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
-
-    /**
      * FileStorage constructor.
      */
     public function __construct()
     {
         $this->file = new EmbeddedFile();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     /**
@@ -121,8 +91,9 @@ class FileStorage
     {
         $this->uploadedFile = $image;
 
-        if ($image)
-            $this->updated = new \DateTimeImmutable();
+//@todo check - is it working without
+//        if ($image)
+//            $this->updated = new \DateTimeImmutable();
 
     }
 
@@ -156,14 +127,6 @@ class FileStorage
     public function setContext(string $context)
     {
         $this->context = $context;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated(): \DateTime
-    {
-        return $this->updated;
     }
 
     public function __toString()

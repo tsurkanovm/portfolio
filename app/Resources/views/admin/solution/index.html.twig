@@ -18,11 +18,15 @@
                         <th>&nbsp;</th>
                     </tr>
                     {% for solution in solutions %}
-                        <tr>
+                        <tr class="js-table-row">
                             <td>{{ solution.name }}</td>
                             <td>
                                 <a href="{{ path('admin_solution_edit', {'id': solution.id}) }}"
                                    class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="#"
+                                   class="btn btn-xs btn-success js-remove-table-row"
+                                   data-url= {{ path('admin_solution_delete', {'id': solution.id}) }}>
+                                    <span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
                     {% endfor %}

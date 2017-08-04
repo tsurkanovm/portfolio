@@ -6,8 +6,6 @@ use AppBundle\Entity\Project;
 use AppBundle\Form\ProjectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("projects")
  */
-class ProjectController extends Controller
+class ProjectController extends BaseAdminController
 {
     /**
      * @Route("/{page}", defaults={"page" = 1}, requirements={"page" = "\d+"}, name="admin_project_list")
@@ -75,7 +73,7 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, Project $project)
     {
-        $deleteForm = $this->createDeleteForm($project);
+        $deleteForm = $this->createDeleteForm($project, 'admin_project_delete');
         $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
@@ -95,20 +93,6 @@ class ProjectController extends Controller
     }
 
     /**
-     * Creates a form to delete a Project entity.
-     *
-     * @param Project $project
-     * @return Form
-     */
-    private function createDeleteForm(Project $project): Form
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_project_delete', array('id' => $project->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
      * Deletes a Project entity.
      *
      * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="admin_project_delete")
@@ -120,14 +104,17 @@ class ProjectController extends Controller
      */
     public function deleteAction(Request $request, Project $project): Response
     {
-        $form = $this->createDeleteForm($project);
+        if ($request->isXmlHttpRequest()) {
+
+            return $this->removeProject($project);
+        }
+
+        $form = $this->createDeleteForm($project, 'admin_project_delete');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($project);
-            $em->flush();
 
+            $this->removeProject($project);
             $this->addFlash('success', "Project {$project->getName()} deleted!");
         }
 

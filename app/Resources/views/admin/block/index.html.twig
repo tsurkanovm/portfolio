@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                     {% for frontendBlock in frontendBlocks %}
-                        <tr>
+                        <tr class="js-table-row">
                             <td>
                                 <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}">{{ frontendBlock.name }}</a>
                             </td>
@@ -30,6 +30,10 @@
                             <td>
                                 <a href="{{ path('admin_block_edit', { 'id': frontendBlock.id }) }}"
                                    class="btn btn-xs btn-success"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="#"
+                                   class="btn btn-xs btn-success js-remove-table-row"
+                                   data-url= {{ path('admin_block_delete', {'id': frontendBlock.id}) }}>
+                                    <span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
                     {% endfor %}

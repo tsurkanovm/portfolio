@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                     {% for fileStorage in fileStorages %}
-                        <tr>
+                        <tr class="js-table-row">
                             <td>
                                 <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}">{{ fileStorage.name }}</a>
                             </td>
@@ -34,6 +34,10 @@
                                 <a href="{{ path('admin_files_show', { 'id': fileStorage.id }) }}"
                                    class="btn btn-xs btn-success"><span class="glyphicon glyphicon-eye-open"></span></a>
 
+                                <a href="#"
+                                   class="btn btn-xs btn-success js-remove-table-row"
+                                   data-url= {{ path('admin_files_delete', {'id': fileStorage.id}) }}>
+                                    <span class="glyphicon glyphicon-remove"></span></a>
                             </td>
                         </tr>
                     {% endfor %}

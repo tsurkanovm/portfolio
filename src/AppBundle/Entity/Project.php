@@ -2,9 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\{ArrayCollection, Collection};
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,34 +15,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Tsurkanov Mihail <tsurkanovm@gmail.com>
  */
-class Project
+class Project extends AdminEntity
 {
-    /**
-     * Primary key
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @var integer $id
-     */
-    private $id;
 
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
 
     /**
      * @ORM\Column(length=20)
@@ -139,14 +113,6 @@ class Project
     }
 
     /**
-     * @return integer
-     */
-    public function getId():int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string|null
      */
     public function getFullName():?string
@@ -204,22 +170,6 @@ class Project
         $this->myRole = $myRole;
 
         return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated():\DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated():\DateTime
-    {
-        return $this->updated;
     }
 
     /**
@@ -348,9 +298,9 @@ class Project
     }
 
     /**
-     * @return Collection|Solution[]
+     * @return ArrayCollection|Solution[]
      */
-    public function getSolutions():Collection
+    public function getSolutions(): ArrayCollection
     {
         return $this->solutions;
     }

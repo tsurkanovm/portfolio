@@ -33,12 +33,12 @@
             <div class="column col-sm-10" id="main">
                 <div class="padding">
                     <div class="full col-sm-10">
-                        {% for msg in app.session.flashBag.get('success') %}
-                            <div class="alert alert-success">
-                                {{ msg }}
-                            </div>
-                        {% endfor %}
                         <div class="container">
+                            {% for msg in app.session.flashBag.get('success') %}
+                                <div class="alert alert-success">
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
                             {% block breadcrumbs %}
                                 {{ knp_menu_render('admin', {'template': 'admin/menu/breadcrumb.html.twig'}) }}
                             {% endblock %}
@@ -54,8 +54,8 @@
 
 {% block javascripts %}
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('vendor/jquery/jquery-3.2.1.slim.min.js') }}"></script>
-    {#<script src="{{ asset('js/main.js') }}"></script>#}
+    <script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/admin.js') }}"></script>
 {% endblock %}
 </body>
 </html>

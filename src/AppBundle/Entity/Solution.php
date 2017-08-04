@@ -13,19 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author Tsurkanov Mihail <tsurkanovm@gmail.com>
  */
-class Solution
+class Solution extends AdminEntity
 {
-    /**
-     * Primary key
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     *
-     * @var integer $id
-     */
-    private $id;
-
     /**
      * @ORM\Column(length=40)
      * @Assert\NotBlank
@@ -40,16 +29,6 @@ class Solution
      * @var FileStorage
      */
     private $logo;
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId():int
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
@@ -75,14 +54,6 @@ class Solution
     }
 
     /**
-     * @return string
-     */
-    public function __toString():string
-    {
-        return $this->getName() ? : "New Solution";
-    }
-
-    /**
      * @return FileStorage
      */
     public function getLogo(): ?FileStorage
@@ -96,5 +67,13 @@ class Solution
     public function setLogo(FileStorage $logo)
     {
         $this->logo = $logo;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->getName() ?: "New Solution";
     }
 }

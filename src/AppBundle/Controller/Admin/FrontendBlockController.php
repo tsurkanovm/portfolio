@@ -3,10 +3,8 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\FrontendBlock;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -15,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("blocks")
  */
-class FrontendBlockController extends Controller
+class FrontendBlockController extends BaseAdminController
 {
     /**
      * @Route("/{page}", defaults={"page" = 1}, requirements={"page" = "\d+"}, name="admin_block_list")
@@ -81,7 +79,7 @@ class FrontendBlockController extends Controller
      */
     public function editAction(Request $request, FrontendBlock $frontendBlock): Response
     {
-        $deleteForm = $this->createDeleteForm($frontendBlock);
+        $deleteForm = $this->createDeleteForm($frontendBlock, 'admin_block_delete');
         $editForm = $this->createForm('AppBundle\Form\FrontendBlockType', $frontendBlock);
         $editForm->handleRequest($request);
 
@@ -101,18 +99,6 @@ class FrontendBlockController extends Controller
     }
 
     /**
-     * @param FrontendBlock $frontendBlock
-     * @return Form
-     */
-    private function createDeleteForm(FrontendBlock $frontendBlock): Form
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_block_delete', array('id' => $frontendBlock->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
      * Deletes a frontendBlock entity.
      *
      * @Route("/delete/{id}", name="admin_block_delete")
@@ -124,7 +110,12 @@ class FrontendBlockController extends Controller
      */
     public function deleteAction(Request $request, FrontendBlock $frontendBlock): Response
     {
-        $form = $this->createDeleteForm($frontendBlock);
+        if ($request->isXmlHttpRequest()) {
+
+            return $this->removeProject($frontendBlock);
+        }
+
+        $form = $this->createDeleteForm($frontendBlock, 'admin_block_delete');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

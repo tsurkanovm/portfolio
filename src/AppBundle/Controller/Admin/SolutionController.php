@@ -6,8 +6,6 @@ use AppBundle\Entity\Solution;
 use AppBundle\Form\SolutionType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("solutions")
  */
-class SolutionController extends Controller
+class SolutionController extends BaseAdminController
 {
     /**
      * @Route("/{page}", defaults={"page" = 1}, requirements={"page" = "\d+"}, name="admin_solution_list")
@@ -76,7 +74,7 @@ class SolutionController extends Controller
      */
     public function editAction(Request $request, Solution $solution)
     {
-        $deleteForm = $this->createDeleteForm($solution);
+        $deleteForm = $this->createDeleteForm($solution, 'admin_solution_delete');
         $form = $this->createForm(SolutionType::class, $solution);
 
         $form->handleRequest($request);
@@ -96,20 +94,6 @@ class SolutionController extends Controller
     }
 
     /**
-     * Creates a form to delete a Solution entity.
-     *
-     * @param Solution $solution
-     * @return Form
-     */
-    private function createDeleteForm(Solution $solution): Form
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_solution_delete', array('id' => $solution->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
      * Deletes a Solution entity.
      *
      * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="admin_solution_delete")
@@ -121,7 +105,12 @@ class SolutionController extends Controller
      */
     public function deleteAction(Request $request, Solution $solution): Response
     {
-        $form = $this->createDeleteForm($solution);
+        if ($request->isXmlHttpRequest()) {
+
+            return $this->removeProject($solution);
+        }
+
+        $form = $this->createDeleteForm($solution, 'admin_solution_delete');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -4,10 +4,8 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\FileStorage;
 use AppBundle\Form\FileStorageType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("files")
  */
-class FileStorageController extends Controller
+class FileStorageController extends BaseAdminController
 {
     /**
      * Lists all fileStorage entities.
@@ -83,7 +81,7 @@ class FileStorageController extends Controller
      */
     public function showAction(FileStorage $fileStorage): Response
     {
-        $deleteForm = $this->createDeleteForm($fileStorage);
+        $deleteForm = $this->createDeleteForm($fileStorage, 'admin_files_delete');
 
         return $this->render('admin/filestorage/show.html.twig', array(
             'fileStorage' => $fileStorage,
@@ -103,7 +101,7 @@ class FileStorageController extends Controller
      */
     public function editAction(Request $request, FileStorage $fileStorage): Response
     {
-        $deleteForm = $this->createDeleteForm($fileStorage);
+        $deleteForm = $this->createDeleteForm($fileStorage, 'admin_files_delete');
         $editForm = $this->createForm(FileStorageType::class, $fileStorage);
         $editForm->handleRequest($request);
 
@@ -123,20 +121,6 @@ class FileStorageController extends Controller
     }
 
     /**
-     * Creates a form to delete a fileStorage entity.
-     *
-     * @param FileStorage $fileStorage The fileStorage entity
-     * @return Form
-     */
-    private function createDeleteForm(FileStorage $fileStorage): Form
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_files_delete', array('id' => $fileStorage->getId())))
-            ->setMethod('DELETE')
-            ->getForm();
-    }
-
-    /**
      * Deletes a fileStorage entity.
      *
      * @Route("/delete/{id}", requirements={"id" = "\d+"}, name="admin_files_delete")
@@ -148,7 +132,12 @@ class FileStorageController extends Controller
      */
     public function deleteAction(Request $request, FileStorage $fileStorage): Response
     {
-        $form = $this->createDeleteForm($fileStorage);
+        if ($request->isXmlHttpRequest()) {
+
+            return $this->removeProject($fileStorage);
+        }
+
+        $form = $this->createDeleteForm($fileStorage, 'admin_files_delete');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
