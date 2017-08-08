@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Solution;
 use AppBundle\Manager\FileStorageManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -56,6 +58,11 @@ class ProjectType extends AbstractType
                     'Enabled' => true,
                     'Disabled' => false,
                 ]
+            ])
+            ->add('solutions', EntityType::class, [
+                'class' => Solution::class,
+                'multiple' => true,
+                'attr' => array('class' => 'selectpicker'),
             ]);
     }
 
