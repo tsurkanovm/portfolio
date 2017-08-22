@@ -1,0 +1,8 @@
+parameters:
+    tsum_requst_registrar.listener.request.class: 'Tsum\RequestRegistrarBundle\Listener\RequestListener'
+
+services:
+    tsum_requst_registrar.listener.request:
+        class: '%tsum_requst_registrar.listener.request.class%'
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest' }
