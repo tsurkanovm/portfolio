@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             //@todo add php-zip package to docker container
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new AppBundle\AppBundle(),
-            new \Tsum\RequestRegistrarBundle\RequestRegistrarBundle(),
+            new Tsum\RequestRegistrarBundle\RequestRegistrarBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
