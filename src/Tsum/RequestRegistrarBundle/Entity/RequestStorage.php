@@ -2,9 +2,26 @@
 
 namespace Tsum\RequestRegistrarBundle\Entity;
 
-use Tsum\RequestRegistrarBundle\Model\RequestStorage as RequestStorageModel;
-
-class RequestStorage extends RequestStorageModel
+class RequestStorage extends BaseRequestStorage
 {
+    /**
+     * @var int
+     */
+    protected $id;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 }

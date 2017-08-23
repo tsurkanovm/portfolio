@@ -2,38 +2,26 @@
 
 namespace Tsum\RequestRegistrarBundle\Listener;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Tsum\RequestRegistrarBundle\Entity\RequestStorage;
+use Tsum\RequestRegistrarBundle\Manager\RequestStorageManagerInterface;
 
 class RequestListener
 {
     /**
-     * @var EntityManager
+     * @var RequestStorageManagerInterface
      */
-    protected $entityManager;
+    protected $storageManager;
 
     /**
-     * RequestListener constructor.
-     * @param EntityManager $entityManager
+     * @param RequestStorageManagerInterface $storageManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(RequestStorageManagerInterface $storageManager)
     {
-        $this->entityManager = $entityManager;
+        $this->storageManager = $storageManager;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-
-        $storage = new RequestStorage();
-        $storage->setBody($request->getContent());
-        $storage->setClientIp($request->getClientIp());
-        $storage->setMethod($request->getMethod());
-        $storage->setRoute($request->getRequestUri());
-        $storage->setHeaders(json_encode($request->headers->all()));
-
-        $this->entityManager->persist($storage);
-        $this->entityManager->flush();
+        $this->storageManager->registerRequest($event->getRequest());
     }
 }

@@ -5,11 +5,6 @@ namespace Tsum\RequestRegistrarBundle\Model;
 class RequestStorage
 {
     /**
-     * @var int
-     */
-    protected $id;
-
-    /**
      * @var string
      */
     protected $headers;
@@ -38,22 +33,6 @@ class RequestStorage
      * @var \DateTime
      */
     protected $registeredAt;
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * @return string
