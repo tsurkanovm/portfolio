@@ -13,12 +13,18 @@ class RequestApiManager
     protected $entityManager;
 
     /**
+     * @var int
+     */
+    protected $limit;
+
+    /**
      * RequestListener constructor.
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, $limit)
     {
         $this->entityManager = $entityManager;
+        $this->limit = $limit;
     }
 
     /**
@@ -40,14 +46,14 @@ class RequestApiManager
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'search'   => null,
             'ip'    => null,
             'method'=> null,
             'route' => null,
-            'limit' => 100,
+            'limit' => $this->limit,
         ));
     }
 }

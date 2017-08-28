@@ -16,7 +16,14 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('tsum_request_registrar');
+        $rootNode = $treeBuilder->root('request_registrar');
+
+        $rootNode
+            ->children()
+                ->scalarNode('requests_limit')
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

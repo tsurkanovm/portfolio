@@ -16,4 +16,4 @@ services:
 
     tsum_request_registrar.manager.request_api_manager:
         class: '%tsum_requst_registrar.manager.request_api_manager.class%'
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '%tsum_request_registrar.requests_limit%']

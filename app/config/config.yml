@@ -77,3 +77,6 @@ sensio_framework_extra:
     request:
         converters: true
         auto_convert: true
+
+request_registrar:
+    requests_limit: 100
