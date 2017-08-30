@@ -21,6 +21,10 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('requests_limit')
+                    ->defaultValue(1000)
+                ->end()
+                ->scalarNode('request_storage_class')
+                    ->defaultValue('Tsum\RequestRegistrarBundle\Model\RequestStorage')
                 ->end()
             ->end()
         ;

@@ -4,7 +4,7 @@ namespace Tsum\RequestRegistrarBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
-use Tsum\RequestRegistrarBundle\Entity\RequestStorage;
+use Tsum\RequestRegistrarBundle\Model\RequestStorageInterface;
 
 class RequestStorageManager implements RequestStorageManagerInterface
 {
@@ -14,12 +14,18 @@ class RequestStorageManager implements RequestStorageManagerInterface
     protected $entityManager;
 
     /**
+     * @var RequestStorageInterface
+     */
+    protected $requestStorage;
+
+    /**
      * RequestListener constructor.
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, RequestStorageInterface $requestStorage)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager  = $entityManager;
+        $this->requestStorage = $requestStorage;
     }
 
     /**
@@ -27,14 +33,9 @@ class RequestStorageManager implements RequestStorageManagerInterface
      */
     public function registerRequest(Request $request)
     {
-        $storage = new RequestStorage();
-        $storage->setBody($request->getContent());
-        $storage->setClientIp($request->getClientIp());
-        $storage->setMethod($request->getMethod());
-        $storage->setRoute($request->getRequestUri());
-        $storage->setHeaders(json_encode($request->headers->all()));
+        $this->requestStorage->saveRequest($request);
 
-        $this->entityManager->persist($storage);
+        $this->entityManager->persist($this->requestStorage);
         $this->entityManager->flush();
     }
 }

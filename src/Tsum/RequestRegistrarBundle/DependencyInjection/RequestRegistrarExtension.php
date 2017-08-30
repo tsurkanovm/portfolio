@@ -24,5 +24,6 @@ class RequestRegistrarExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('tsum_request_registrar.requests_limit', $config['requests_limit']);
+        $container->setParameter('tsum_requst_registrar.manager.request_storage.class', $config['request_storage_class']);
     }
 }

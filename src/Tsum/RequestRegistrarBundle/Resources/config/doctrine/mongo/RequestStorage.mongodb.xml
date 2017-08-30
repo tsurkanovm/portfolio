@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+<entity
+        name="Tsum\RequestRegistrarBundle\Model\RequestStorage"
+        repository-class="Tsum\RequestRegistrarBundle\Repository\RequestStorageRepository"
+        table="request_storage">
+
+    <id name="id" type="integer" column="id">
+        <generator strategy="AUTO"/>
+    </id>
+
+</entity>
+</doctrine-mongo-mapping>

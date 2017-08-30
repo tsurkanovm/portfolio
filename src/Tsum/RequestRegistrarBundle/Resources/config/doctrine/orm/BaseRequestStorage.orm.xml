@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass
-            name="Tsum\RequestRegistrarBundle\Entity\BaseRequestStorage">
+            name="Tsum\RequestRegistrarBundle\Model\BaseRequestStorage">
 
         <field name="headers" type="text" length="1024"/>
         <field name="body" type="text" nullable="true" length="1024"/>

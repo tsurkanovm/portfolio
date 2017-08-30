@@ -49,11 +49,11 @@ class RequestApiManager
     protected function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'search'   => null,
-            'ip'    => null,
-            'method'=> null,
-            'route' => null,
-            'limit' => $this->limit,
+            'search' => null,
+            'ip'     => null,
+            'method' => null,
+            'route'  => null,
+            'limit'  => $this->limit,
         ));
     }
 }

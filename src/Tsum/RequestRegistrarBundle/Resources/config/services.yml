@@ -1,5 +1,5 @@
 parameters:
-    tsum_requst_registrar.listener.request.class: 'Tsum\RequestRegistrarBundle\Listener\RequestListener'
+    tsum_requst_registrar.listener.request.class: 'Tsum\RequestRegistrarBundle\EventListener\RequestListener'
     tsum_requst_registrar.manager.request_storage_manager.class: 'Tsum\RequestRegistrarBundle\Manager\RequestStorageManager'
     tsum_requst_registrar.manager.request_api_manager.class: 'Tsum\RequestRegistrarBundle\Manager\RequestApiManager'
 
@@ -12,8 +12,11 @@ services:
 
     tsum_request_registrar.manager.request_storage_manager:
         class: '%tsum_requst_registrar.manager.request_storage_manager.class%'
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@tsum_request_registrar.request_storage']
 
     tsum_request_registrar.manager.request_api_manager:
         class: '%tsum_requst_registrar.manager.request_api_manager.class%'
         arguments: ['@doctrine.orm.entity_manager', '%tsum_request_registrar.requests_limit%']
+
+    tsum_request_registrar.request_storage:
+        class: '%tsum_requst_registrar.manager.request_storage.class%'

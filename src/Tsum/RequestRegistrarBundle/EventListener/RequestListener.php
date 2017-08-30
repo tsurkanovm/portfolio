@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsum\RequestRegistrarBundle\Listener;
+namespace Tsum\RequestRegistrarBundle\EventListener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Tsum\RequestRegistrarBundle\Manager\RequestStorageManagerInterface;
