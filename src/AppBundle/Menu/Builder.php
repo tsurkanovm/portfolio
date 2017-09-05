@@ -40,6 +40,7 @@ class Builder
         $this->createSolutionMenu($menu);
         $this->createFilesMenu($menu);
         $this->createBlocksMenu($menu);
+        $this->createRequestsMenu($menu);
 
         return $menu;
     }
@@ -111,5 +112,13 @@ class Builder
                 'display' => false
             ]);
         }
+    }
+
+    /**
+     * @param ItemInterface $root
+     */
+    protected function createRequestsMenu(ItemInterface $root): void
+    {
+        $root->addChild('Incoming Requests', ['route' => 'admin_incoming_request_list']);
     }
 }

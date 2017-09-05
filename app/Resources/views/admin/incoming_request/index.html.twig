@@ -1,0 +1,33 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% set routeName = 'admin_solution_list' %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+
+            <h1>Incoming requests</h1>
+
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <th>ROUTE</th>
+                    <th>METHOD</th>
+                    <th>HEADERS</th>
+                    <th>CONTENT</th>
+                    <th>IP</th>
+                    <th>DATE</th>
+                </tr>
+                {% for request in requests %}
+                    <tr class="js-table-row">
+                        <td>{{ request.route }}</td>
+                        <td>{{ request.method }}</td>
+                        <td>{{ request.headers }}</td>
+                        <td>{{ request.body }}</td>
+                        <td>{{ request.cientIp }}</td>
+                        <td>{{ request.registeredAt | date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

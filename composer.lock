@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "074b3653a2b60d196f1796c981b8a85b",
+    "content-hash": "3d4dfb9f678a493699b57d571265cbf6",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2761,6 +2761,55 @@
             "time": "2017-05-29T19:32:17+00:00"
         },
         {
+            "name": "tsum/request-registrar-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tsurkanovm/RequestRegistrarBundle.git",
+                "reference": "5a9233460a16e37edf132655b58b2c561b4c6e66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tsurkanovm/RequestRegistrarBundle/zipball/5a9233460a16e37edf132655b58b2c561b4c6e66",
+                "reference": "5a9233460a16e37edf132655b58b2c561b4c6e66",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.5",
+                "php": ">=5.5.9",
+                "symfony/framework-bundle": "~2.3|~3.0",
+                "symfony/options-resolver": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Tsum\\RequestRegistrarBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tsum",
+                    "homepage": "http://tsurkanov.pro"
+                },
+                {
+                    "name": "Mikhail Tsurkanov",
+                    "email": "tsurkanovm@gmail.com"
+                }
+            ],
+            "description": "This bundle provides registration of all income request in db",
+            "keywords": [
+                "request"
+            ],
+            "time": "2017-09-05 15:37:50"
+        },
+        {
             "name": "twig/twig",
             "version": "v1.33.2",
             "source": {
@@ -3440,6 +3489,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "tsum/request-registrar-bundle": 20,
         "hautelook/alice-bundle": 10,
         "nelmio/alice": 10,
         "theofidry/alice-data-fixtures": 10
@@ -3447,7 +3497,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.5.9"
+        "php": ">=7.1"
     },
     "platform-dev": []
 }

@@ -46,7 +46,7 @@ class BlockExtension extends \Twig_Extension
             ->getRepository('AppBundle:FrontendBlock')
             ->findOneByName($blockName);
 
-        return $block->getContent();
+        return $block ? $block->getContent() : '';
     }
 
     /**
