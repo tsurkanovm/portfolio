@@ -3,10 +3,46 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Edit project - {{ project.name }}</h1>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#panel1">Main</a></li>
+                <li><a data-toggle="tab" href="#panel2">Images and Solutions</a></li>
+            </ul>
 
-            {{ include('admin/_form.html.twig') }}
+            <h1>Edit project - {{ project.name }}</h1>
+            <div class="tab-content">
+                <div id="panel1" class="tab-pane fade in active">
+                    {{ form_start(form) }}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.fullName) }}
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.workDescription) }}
+                    {{ form_row(form.myRole) }}
+                    {{ form_row(form.challenge) }}
+                    {{ form_row(form.weight) }}
+                    {{ form_row(form.displayOnHome) }}
+                    {{ form_row(form.status) }}
+
+                </div>
+                <div id="panel2" class="tab-pane fade">
+                    {{ form_row(form.imageLogo) }}
+                    {{ form_row(form.imageTemplate) }}
+                    {{ form_row(form.solutions) }}
+                </div>
+
+            </div>
+            <div class="col-xs-1">
+                <button class="btn btn-primary outline" formnovalidate>Save</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="col-xs-1">
             {{ include('admin/_delete_form.html.twig') }}
+            </div>
+
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 {% endblock %}

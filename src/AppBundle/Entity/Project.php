@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -79,7 +80,7 @@ class Project extends AdminEntity
     /**
      * @ORM\ManyToMany(targetEntity="Solution")
      *
-     * @var ArrayCollection
+     * @var Collection
      */
     private $solutions;
 
@@ -298,9 +299,9 @@ class Project extends AdminEntity
     }
 
     /**
-     * @return ArrayCollection|Solution[]
+     * @return Collection|Solution[]
      */
-    public function getSolutions(): ArrayCollection
+    public function getSolutions(): Collection
     {
         return $this->solutions;
     }
