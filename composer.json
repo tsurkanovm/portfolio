@@ -28,6 +28,7 @@
     "doctrine/doctrine-migrations-bundle": "^1.2",
     "doctrine/orm": "^2.5",
     "egeloen/ckeditor-bundle": "^6.0",
+    "friendsofsymfony/user-bundle": "^2.0",
     "gedmo/doctrine-extensions": "^2.4",
     "incenteev/composer-parameter-handler": "^2.0",
     "knplabs/knp-menu-bundle": "^2.0",
